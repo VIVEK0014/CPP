@@ -47,12 +47,12 @@ int main ()
   l_to_g lgob(4);
   f_to_c fcob(70);
   p=&lgob;
-  cout<<"litres is : "<<p->getinit();
+  cout<<p->getinit()<<" litres is ";
   p->compute();
-  cout<<"\ngallons is : "<<p->getconv();
+  cout<<p->getconv()<<" gallons.\n";
   p=&fcob;
-  cout<<"\nfahrenhit is : "<<p->getinit();
+  cout<<p->getinit()<<" fahrenhit is ";
   p->compute();
-  cout<<"\ncelsius : "<<p->getconv();
+  cout<<p->getconv()<<" celsius. \n";
   return 0;
 }
