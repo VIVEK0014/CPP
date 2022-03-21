@@ -1,4 +1,4 @@
-/* Que 5*/
+/*  Assignment_q5 with exception handling*/
 
 #include<fstream>
 #include<iostream>
@@ -10,27 +10,33 @@ using namespace std;
 class student
 {
 	public:
-	     int ID; string name;string Location; string Branch;
+	     int id;
+	     string name;
+	     string location; 
+	     string branch;
+	     
 	     void getdata()
 	     {
-	     	cout << "Enter Student ID" <<endl;
-	     	cin>>ID;
-	     	cout << "Enter Student Name" <<endl;
+	     	cout << "Enter ID" <<endl;
+	     	cin>>id;
+	     	cout << "Enter Name" <<endl;
 	     	cin>>name;
-	     	cout << "Enter Student Location" <<endl;
-	     	cin>>Location;
-	     	cout<<"Enter Student Branch"<<endl;
-	     	cin>>Branch;
+	     	cout << "Enter Location" <<endl;
+	     	cin>>location;
+	     	cout<<"Enter Branch"<<endl;
+	     	cin>>branch;
 	     }
-	     void Addrecode()
+	     
+	     void addinfo()
 	     {
 	     	fstream f;
-	     	student s;
-	     	f.open("studentdata.txt", ios::app);
-	     	s.getdata();
-	     	f << s.ID << "\t" << s.name << "\t" << s.Location << "\t"<< s.Branch << endl;
+	     	student stu;
+	     	f.open("student.txt", ios::app);
+	     	stu.getdata();
+	     	f << stu.id << "\t" << stu.name << "\t" << stu.location << "\t"<< stu.branch << endl;
 	     	f.close();
 	     }
+	     
 	     void display()
 	     {
 	     	int id1;
@@ -43,7 +49,8 @@ class student
 	     	student s;
 	     	cout<< "Enter a student ID:-";
 	     	cin >> id1;
-	     	f1.open("studentdata.txt", ios::in);
+	     	f1.open("student.txt", ios::in);
+	     	
 	     	while(getline(f1,buf))
 		{
 			stringstream ss(buf);
@@ -63,11 +70,12 @@ class student
 					  {
 					  	flag = 0;
 					  	getline(ss,str,'\t');
-					  	cout << "Name:- " << str << "\t";
+					  	cout << "Name: " << str << "\t";
 					  	getline(ss,str,'\t');
-					  	cout << "Location:- " << str << "\t";
+					  	cout << "Location: " << str << "\t";
 					  	getline(ss,str,'\t');
-					  	cout << "Branch:- " << str << "\t" << endl;
+					  	cout << "Branch: " << str << "\t" << endl;
+					  	cout<<"\n";
 					  	break;
 					  }
 		     		}
@@ -75,10 +83,17 @@ class student
 	     		}
 	     		count = 0;
 	     	}
-	     	if(flag)
+	     	try
 	     	{
-	     		cout << "Not Found" << endl;
+	     		if(flag)
+	     		{	
+	     			throw flag;
+	     		}
 	     	}
+	     	catch(int x)
+		{
+			cout<<"Student not found\n"<<endl;
+		}
 	     	f1.close();
 	     }
 };
@@ -87,19 +102,19 @@ int main()
 {
 	student s1;
 	fstream f;
-	int choise;
-	f.open("studentdata.txt", ios::app);
+	int op;
+	f.open("student.txt", ios::app);
+	
 	while(1)
 	{
-		cout << "1 : Enter student detail \n2: Find student \n3: Quit\n"; 
-		cout << "Enter your choice:- ";
-		cin >> choise;
-		if(choise == 1)
+		cout<<"Enter the operation to be performed: "<<endl;
+		cout << "1. Enter student detail \n2. Find student \n3. Exit"<<endl; 
+		cin >> op;
+		if(op == 1)
 		{
-			s1.Addrecode();
-			cout<<"updated!!!"<<endl;
+			s1.addinfo();
 		}
-		else if(choise == 2)
+		else if(op == 2)
 		{
 			student s2;
 			s2.display();
@@ -109,5 +124,4 @@ int main()
 			break;
 		}
 	}
-	return 0;
 }
